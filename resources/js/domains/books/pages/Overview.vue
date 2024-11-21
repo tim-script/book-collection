@@ -11,9 +11,9 @@
 
 <template>
     <ul>
-        <li v-for="author in authors.data">{{author}}</li>
+        <li v-for="author in authors">{{author}}</li>
     </ul>
     <ul>
-        <li v-for="book in books.data">{{book}}</li>
+        <li v-for="book in books">{{book}}</li>
     </ul>
 </template>

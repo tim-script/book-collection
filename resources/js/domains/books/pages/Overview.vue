@@ -11,9 +11,9 @@
 
 <template>
     <ul>
-        <li v-for="author in authors">{{author}}</li>
-    </ul>
-    <ul>
-        <li v-for="book in books">{{book}}</li>
+        <li v-for="book in books">
+            {{authors.find(author => author.id === book.author_id).name}}:
+            <em>{{book.title}}</em>
+        </li>
     </ul>
 </template>

@@ -1,12 +1,16 @@
 <script setup>
-    import { computed } from 'vue'
+    import { ref } from 'vue'
     import { fetchAuthors, fetchBooks, getAllAuthors, getAllBooks } from '../store'
 
-    fetchAuthors()
-    fetchBooks()
+    const authors = ref([])
+    const books = ref([])
 
-    const authors = computed(() => getAllAuthors())
-    const books = computed(() => getAllBooks())
+    Promise.all([fetchAuthors(), fetchBooks()])
+        .then(() => {
+            authors.value = getAllAuthors()
+            books.value = getAllBooks()
+        })
+        .catch(console.error)
 </script>
 
 <template>

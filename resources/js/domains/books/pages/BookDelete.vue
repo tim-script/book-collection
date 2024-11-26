@@ -9,3 +9,5 @@
         .then(() => { router.push({name: 'overview'}) })
         .catch(error => { console.error('deleteBook:', error) })
 </script>
+
+<template></template>

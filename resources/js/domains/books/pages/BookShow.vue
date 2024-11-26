@@ -27,7 +27,7 @@
 
     <dl>
         <dt>Auteur</dt>
-        <dd>{{author.name}}</dd>
+        <dd><RouterLink :to="{name: 'author-show', params: {id: author.id}}">{{author.name}}</RouterLink></dd>
 
         <dt>Titel</dt>
         <dd>{{book.title}}</dd>

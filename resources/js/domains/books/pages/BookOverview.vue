@@ -26,7 +26,7 @@
     <table>
         <tbody>
             <tr v-for="book in books">
-                <td>{{getAuthorNameById(book.author_id)}}</td>
+                <td><RouterLink :to="{name: 'author-show', params: {id: book.author_id}}">{{getAuthorNameById(book.author_id)}}</RouterLink></td>
                 <td><RouterLink :to="{name: 'book-show', params: {id: book.id}}">{{book.title}}</RouterLink></td>
                 <td><RouterLink :to="{name: 'book-edit', params: {id: book.id}}">Bewerken</RouterLink></td>
                 <td><RouterLink :to="{name: 'book-delete', params: {id: book.id}}">Verwijderen</RouterLink></td>

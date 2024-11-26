@@ -3,6 +3,8 @@
     <nav>
         <ul>
             <li><RouterLink :to="{name: 'overview'}">Home</RouterLink></li>
+            <li><RouterLink :to="{name: 'author-overview'}">Auteurs</RouterLink></li>
+            <li><RouterLink :to="{name: 'author-create'}">Auteur toevoegen</RouterLink></li>
             <li><RouterLink :to="{name: 'book-create'}">Boek toevoegen</RouterLink></li>
         </ul>
     </nav>

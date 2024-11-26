@@ -9,7 +9,12 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/authors', [AuthorController::class, 'index']);
+Route::controller(AuthorController::class)->group(function () {
+    Route::get('/authors', 'index');
+    Route::post('/authors', 'store');
+    Route::patch('/authors/{author}', 'update');
+    Route::delete('/authors/{author}', 'destroy');
+});
 
 Route::controller(BookController::class)->group(function () {
     Route::get('/books', 'index');

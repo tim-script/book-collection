@@ -5,7 +5,6 @@
 
     const route = useRoute()
 
-    const books = ref([])
     const book = ref({})
     const author = ref({})
 

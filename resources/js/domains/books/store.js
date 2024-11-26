@@ -31,7 +31,7 @@ export const getBookById = (id) =>
     computed(() => books.value.find(book => book.id == id))
 
 export const createBook = async (book) => {
-    await axios.post('api/books', book)
+    await axios.post('/api/books', book)
 }
 
 export const updateBook = async (book) => {

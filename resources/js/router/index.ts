@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Create from '../domains/books/pages/Create.vue'
-import Delete from '../domains/books/pages/Delete.vue'
-import Edit from '../domains/books/pages/Edit.vue'
-import Overview from '../domains/books/pages/Overview.vue'
+import BookCreate from '../domains/books/pages/BookCreate.vue'
+import BookDelete from '../domains/books/pages/BookDelete.vue'
+import BookEdit from '../domains/books/pages/BookEdit.vue'
+import BookOverview from '../domains/books/pages/BookOverview.vue'
 
 const routes = [
-    {name: 'overview', path: '/', component: Overview},
-    {name: 'create', path: '/create', component: Create},
-    {name: 'edit', path: '/edit/:id', component: Edit},
-    {name: 'delete', path: '/delete/:id', component: Delete},
+    {name: 'overview',    path: '/',                 component: BookOverview},
+    {name: 'book-create', path: '/books/create',     component: BookCreate},
+    {name: 'book-edit',   path: '/books/edit/:id',   component: BookEdit},
+    {name: 'book-delete', path: '/books/delete/:id', component: BookDelete},
 ]
 
 export const router = createRouter({

@@ -3,7 +3,7 @@
     <nav>
         <ul>
             <li><RouterLink :to="{name: 'overview'}">Home</RouterLink></li>
-            <li><RouterLink :to="{name: 'create'}">Toevoegen</RouterLink></li>
+            <li><RouterLink :to="{name: 'book-create'}">Boek toevoegen</RouterLink></li>
         </ul>
     </nav>
     <RouterView />

@@ -11,7 +11,9 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/authors', [AuthorController::class, 'index']);
 
-Route::get('/books', [BookController::class, 'index']);
-Route::post('/books', [BookController::class, 'store']);
-Route::patch('/books/{book}', [BookController::class, 'update']);
-Route::delete('/books/{book}', [BookController::class, 'destroy']);
+Route::controller(BookController::class)->group(function () {
+    Route::get('/books', 'index');
+    Route::post('/books', 'store');
+    Route::patch('/books/{book}', 'update');
+    Route::delete('/books/{book}', 'destroy');
+});

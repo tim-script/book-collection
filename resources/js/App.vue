@@ -8,3 +8,20 @@
     </nav>
     <RouterView />
 </template>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    td {
+        border: 1px solid #ccc;
+        padding: .25rem;
+    }
+    div.form div + div {
+        margin-top: 1rem;
+    }
+    label {
+        display: block;
+        margin-bottom: .25rem;
+    }
+</style>

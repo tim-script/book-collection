@@ -34,13 +34,3 @@
         </tbody>
     </table>
 </template>
-
-<style scoped>
-    table {
-        border-collapse: collapse;
-    }
-    td {
-        border: 1px solid #ccc;
-        padding: .25rem;
-    }
-</style>

@@ -13,6 +13,9 @@ export const fetchAuthors = async () => {
 
 export const getAllAuthors = () => authors.value
 
+export const getAllAuthorsSorted = () =>
+    authors.value.toSorted((a, b) => a.name.localeCompare(b.name))
+
 const books = ref([])
 
 export const fetchBooks = async () => {

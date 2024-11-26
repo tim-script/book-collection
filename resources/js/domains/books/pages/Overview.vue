@@ -23,10 +23,24 @@
 </script>
 
 <template>
-    <ul>
-        <li v-for="book in books">
-            {{getAuthorNameById(book.author_id)}}:
-            <em>{{book.title}}</em>
-        </li>
-    </ul>
+    <table>
+        <tbody>
+            <tr v-for="book in books">
+                <td>{{getAuthorNameById(book.author_id)}}</td>
+                <td>{{book.title}}</td>
+                <td><RouterLink :to="{name: 'edit', params: {id: book.id}}">Bewerken</RouterLink></td>
+                <td><RouterLink :to="{name: 'delete', params: {id: book.id}}">Verwijderen</RouterLink></td>
+            </tr>
+        </tbody>
+    </table>
 </template>
+
+<style scoped>
+    table {
+        border-collapse: collapse;
+    }
+    td {
+        border: 1px solid #ccc;
+        padding: .25rem;
+    }
+</style>

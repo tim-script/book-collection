@@ -14,6 +14,7 @@ class Book extends Model
     protected $fillable = [
         'author_id',
         'title',
+        'review',
     ];
 
     public function author(): BelongsTo {

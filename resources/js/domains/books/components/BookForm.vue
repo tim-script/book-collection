@@ -30,6 +30,10 @@
             <input id="title=" name="title" type="text" v-model="book.title" required />
         </div>
         <div>
+            <label for="review">Recensie:</label>
+            <textarea id="review" name="review" cols="50" rows="10" v-model="book.review"></textarea>
+        </div>
+        <div>
             <button @click="$emit('submit')">Toevoegen</button>
         </div>
     </div>

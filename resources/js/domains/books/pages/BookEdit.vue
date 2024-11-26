@@ -16,7 +16,7 @@
 
     const updateBookInStore = () => {
         updateBook(book.value)
-            .then(() => { router.push({name: 'overview'}) })
+            .then(() => { router.push({name: 'book-show', params: {id: book.value.id}}) })
             .catch(error => { console.error('updateBook:', error) })
     }
 </script>

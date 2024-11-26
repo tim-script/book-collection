@@ -24,6 +24,7 @@ class StoreBookRequest extends FormRequest
         return [
             'author_id' => 'required|exists:authors,id',
             'title' => 'required|max:255',
+            'review' => '',
         ];
     }
 }

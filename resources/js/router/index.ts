@@ -7,6 +7,7 @@ import BookCreate from '../domains/books/pages/BookCreate.vue'
 import BookDelete from '../domains/books/pages/BookDelete.vue'
 import BookEdit from '../domains/books/pages/BookEdit.vue'
 import BookOverview from '../domains/books/pages/BookOverview.vue'
+import BookShow from '../domains/books/pages/BookShow.vue'
 
 const routes = [
     {name: 'overview',        path: '/',                   component: BookOverview},
@@ -15,6 +16,7 @@ const routes = [
     {name: 'author-edit',     path: '/authors/edit/:id',   component: AuthorEdit},
     {name: 'author-delete',   path: '/authors/delete/:id', component: AuthorDelete},
     {name: 'book-create',     path: '/books/create',       component: BookCreate},
+    {name: 'book-show',       path: '/books/:id',          component: BookShow},
     {name: 'book-edit',       path: '/books/edit/:id',     component: BookEdit},
     {name: 'book-delete',     path: '/books/delete/:id',   component: BookDelete},
 ]

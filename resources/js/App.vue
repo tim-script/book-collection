@@ -26,4 +26,10 @@
         display: block;
         margin-bottom: .25rem;
     }
+    input, select {
+        font-size: 100%;
+    }
+    textarea {
+        font-family: sans-serif;
+    }
 </style>

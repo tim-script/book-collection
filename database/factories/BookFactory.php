@@ -20,6 +20,7 @@ class BookFactory extends Factory
         return [
             'author_id' => Author::inRandomOrder()->first()->id,
             'title' => ucfirst($this->faker->words(rand(1, 5), true)),
+            'review' => rand(0, 1) == 0 ? null : $this->faker->paragraphs(rand(1, 3), true),
         ];
     }
 }

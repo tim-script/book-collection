@@ -1,7 +1,7 @@
 <script setup>
     import { ref } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
-    import BookForm from '../components/BookForm.vue'
+    import Form from '../components/Form.vue'
     import { fetchBooks, getBookById, updateBook } from '../store'
 
     const route = useRoute()
@@ -22,5 +22,5 @@
 </script>
 
 <template>
-    <BookForm :book="book" @submit="updateBookInStore" />
+    <Form :book="book" @submit="updateBookInStore" />
 </template>

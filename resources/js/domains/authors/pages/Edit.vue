@@ -1,7 +1,7 @@
 <script setup>
     import { ref } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
-    import AuthorForm from '../components/AuthorForm.vue'
+    import Form from '../components/Form.vue'
     import { fetchAuthors, getAuthorById, updateAuthor } from '../store'
 
     const route = useRoute()
@@ -22,5 +22,5 @@
 </script>
 
 <template>
-    <AuthorForm :author="author" @submit="updateAuthorInStore" />
+    <Form :author="author" @submit="updateAuthorInStore" />
 </template>

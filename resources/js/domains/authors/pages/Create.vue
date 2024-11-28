@@ -1,6 +1,6 @@
 <script setup>
     import { useRouter } from 'vue-router'
-    import AuthorForm from '../components/AuthorForm.vue'
+    import Form from '../components/Form.vue'
     import { createAuthor } from '../store'
 
     const router = useRouter()
@@ -15,5 +15,5 @@
 </script>
 
 <template>
-    <AuthorForm :author="author" @submit="createAuthorInStore" />
+    <Form :author="author" @submit="createAuthorInStore" />
 </template>

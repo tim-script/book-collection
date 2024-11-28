@@ -1,14 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AuthorCreate from '../domains/books/pages/AuthorCreate.vue'
-import AuthorDelete from '../domains/books/pages/AuthorDelete.vue'
-import AuthorEdit from '../domains/books/pages/AuthorEdit.vue'
-import AuthorOverview from '../domains/books/pages/AuthorOverview.vue'
-import AuthorShow from '../domains/books/pages/AuthorShow.vue'
-import BookCreate from '../domains/books/pages/BookCreate.vue'
-import BookDelete from '../domains/books/pages/BookDelete.vue'
-import BookEdit from '../domains/books/pages/BookEdit.vue'
-import BookOverview from '../domains/books/pages/BookOverview.vue'
-import BookShow from '../domains/books/pages/BookShow.vue'
+
+import AuthorCreate   from '../domains/authors/pages/Create.vue'
+import AuthorDelete   from '../domains/authors/pages/Delete.vue'
+import AuthorEdit     from '../domains/authors/pages/Edit.vue'
+import AuthorOverview from '../domains/authors/pages/Overview.vue'
+import AuthorShow     from '../domains/authors/pages/Show.vue'
+
+import BookCreate   from '../domains/books/pages/Create.vue'
+import BookDelete   from '../domains/books/pages/Delete.vue'
+import BookEdit     from '../domains/books/pages/Edit.vue'
+import BookOverview from '../domains/books/pages/Overview.vue'
+import BookShow     from '../domains/books/pages/Show.vue'
 
 const routes = [
     {name: 'overview',        path: '/',                   component: BookOverview},

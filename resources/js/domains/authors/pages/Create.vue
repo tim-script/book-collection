@@ -5,12 +5,11 @@
 
     const router = useRouter()
 
-    const author = {name: ''}
+    const author = {}
 
-    const createAuthorInStore = () => {
-        createAuthor(author)
-            .then(() => { router.push({name: 'author-overview'}) })
-            .catch(error => { console.error('createAuthor:', error) })
+    const createAuthorInStore = async () => {
+        await createAuthor(author)
+        router.push({name: 'author-overview'})
     }
 </script>
 

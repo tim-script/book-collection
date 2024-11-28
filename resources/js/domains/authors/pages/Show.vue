@@ -1,22 +1,26 @@
 <script setup>
-    import { ref } from 'vue'
+    import { computed } from 'vue'
     import { useRoute } from 'vue-router'
-    import { fetchBooks, getAllBooks } from '../../books/store'
+    import { fetchBooks, getBooksByAuthorId } from '../../books/store'
     import { fetchAuthors, getAuthorById } from '../store'
 
     const route = useRoute()
 
-    const author = ref([])
-    const books = ref([])
+    fetchAuthors()
+    fetchBooks()
 
-    Promise.all([fetchAuthors(), fetchBooks()])
-        .then(() => {
-            author.value = getAuthorById(route.params.id).value
-            books.value = getAllBooks()
-                .filter(book => book.author_id == route.params.id)
-                .sort((book1, book2) => book1.title.localeCompare(book2.title))
-        })
-        .catch(console.error)
+    const author = computed(() =>
+        // XXX getAuthorById() returns undefined if fetchAuthors() has not yet
+        // finished. In that case, return an empty object so that using
+        // "{{author.name}}" in the template does not cause an error:
+        //
+        // Uncaught (in promise) TypeError: $setup.author is undefined
+        getAuthorById(route.params.id).value || {})
+
+    const books = computed(() =>
+        getBooksByAuthorId(author.value.id)
+            .value
+            .sort((book1, book2) => book1.title.localeCompare(book2.title)))
 </script>
 
 <template>

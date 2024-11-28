@@ -5,9 +5,13 @@
     const route = useRoute()
     const router = useRouter()
 
-    deleteBook(route.params.id)
-        .then(() => { router.push({name: 'overview'}) })
-        .catch(error => { console.error('deleteBook:', error) })
+    const deleteBookInStore = async () => {
+        await deleteBook(route.params.id)
+        router.push({name: 'overview'})
+    }
+
+    // XXX
+    deleteBookInStore()
 </script>
 
 <template></template>

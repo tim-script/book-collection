@@ -3,28 +3,42 @@ import { computed, ref } from 'vue'
 const authors = ref([])
 
 export const fetchAuthors = async () => {
-    const {data} = await axios.get('/api/authors')
-    if (!data)
-        return
-    authors.value = data
+    try {
+        const {data} = await axios.get('/api/authors')
+        authors.value = data
+    } catch (error) {
+        console.error('fetchAuthors:', error)
+    }
 }
 
-export const getAllAuthors = () => authors.value
+export const getAllAuthors = () => computed(() => authors.value)
 
 export const getAllAuthorsSorted = () =>
-    authors.value.toSorted((a, b) => a.name.localeCompare(b.name))
+    computed(() => authors.value.toSorted((a, b) => a.name.localeCompare(b.name)))
 
 export const getAuthorById = (id) =>
     computed(() => authors.value.find(author => author.id == id))
 
 export const createAuthor = async (author) => {
-    await axios.post('/api/authors', author)
+    try {
+        await axios.post('/api/authors', author)
+    } catch (error) {
+        console.error('createAuthor:', error)
+    }
 }
 
 export const updateAuthor = async (author) => {
-    await axios.patch('/api/authors/' + author.id, author)
+    try {
+        await axios.patch('/api/authors/' + author.id, author)
+    } catch (error) {
+        console.error('updateAuthor:', error)
+    }
 }
 
 export const deleteAuthor = async (id) => {
-    await axios.delete('/api/authors/' + id)
+    try {
+        await axios.delete('/api/authors/' + id)
+    } catch (error) {
+        console.error('deleteAuthor:', error)
+    }
 }

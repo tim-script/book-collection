@@ -5,12 +5,11 @@
 
     const router = useRouter()
 
-    const book = {author_id: 0, title: ''}
+    const book = {author_id: 0}
 
-    const createBookInStore = () => {
-        createBook(book)
-            .then(() => { router.push({name: 'overview'}) })
-            .catch(error => { console.error('createBook:', error) })
+    const createBookInStore = async () => {
+        await createBook(book)
+        router.push({name: 'overview'})
     }
 </script>
 

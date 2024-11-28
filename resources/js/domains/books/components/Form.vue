@@ -7,14 +7,15 @@
 
     const authors = ref([])
 
-    fetchAuthors()
-        .then(() => {
-            authors.value = getAllAuthorsSorted()
+    const fetchAuthorsAndSetDefaultAuthorId = async () => {
+        await fetchAuthors()
+        authors.value = getAllAuthorsSorted().value
+        if (props.book.author_id == 0 && authors.value.length > 0)
+            props.book.author_id = authors.value[0].id
+    }
 
-            if (props.book.author_id == 0 && authors.value.length > 0)
-                props.book.author_id = authors.value[0].id
-        })
-        .catch(error => { console.error('fetchAuthors:', error) })
+    // XXX
+    fetchAuthorsAndSetDefaultAuthorId()
 </script>
 
 <template>

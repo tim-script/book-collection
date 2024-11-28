@@ -1,26 +1,28 @@
 <script setup>
-    import { ref } from 'vue'
-    import { fetchAuthors, getAllAuthors } from '../../authors/store'
+    import { computed } from 'vue'
+    import { fetchAuthors, getAllAuthors, getAuthorById } from '../../authors/store'
     import { fetchBooks, getAllBooks } from '../store'
 
-    const authors = ref([])
-    const books = ref([])
+    const getAuthorNameById = (id) => computed(() => {
+        // XXX See comment in authors/pages/Show.vue
+        const author = getAuthorById(id).value
+        return author ? author.name : ''
+    })
 
-    const getAuthorNameById = id => authors.value.find(author => author.id === id).name
+    fetchAuthors()
+    fetchBooks()
 
-    Promise.all([fetchAuthors(), fetchBooks()])
-        .then(() => {
-            authors.value = getAllAuthors()
-            books.value = getAllBooks().toSorted((book1, book2) => {
-                if (book1.author_id != book2.author_id) {
-                    const author1 = getAuthorNameById(book1.author_id)
-                    const author2 = getAuthorNameById(book2.author_id)
-                    return author1.localeCompare(author2)
-                }
-                return book1.title.localeCompare(book2.title)
-            })
-        })
-        .catch(console.error)
+    const authors = getAllAuthors()
+
+    const books = computed(() =>
+        getAllBooks().value.toSorted((book1, book2) => {
+            if (book1.author_id != book2.author_id) {
+                const author1 = getAuthorNameById(book1.author_id).value
+                const author2 = getAuthorNameById(book2.author_id).value
+                return author1.localeCompare(author2)
+            }
+            return book1.title.localeCompare(book2.title)
+        }))
 </script>
 
 <template>

@@ -1,20 +1,17 @@
 <script setup>
-    import { ref } from 'vue'
+    import { computed } from 'vue'
     import { useRoute } from 'vue-router'
     import { fetchAuthors, getAuthorById } from '../../authors/store'
     import { fetchBooks, getBookById } from '../store'
 
     const route = useRoute()
 
-    const book = ref({})
-    const author = ref({})
+    fetchAuthors()
+    fetchBooks()
 
-    Promise.all([fetchAuthors(), fetchBooks()])
-        .then(() => {
-            book.value = getBookById(route.params.id).value
-            author.value = getAuthorById(book.value.author_id).value
-        })
-        .catch(console.error)
+    // XXX See comment in authors/pages/Show.vue
+    const book = computed(() => getBookById(route.params.id).value || {})
+    const author = computed(() => getAuthorById(book.value.author_id).value || {})
 </script>
 
 <template>

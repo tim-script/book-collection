@@ -1,12 +1,9 @@
 <script setup>
-    import { ref } from 'vue'
     import { fetchAuthors, getAllAuthorsSorted } from '../store'
 
-    const authors = ref([])
-
     fetchAuthors()
-        .then(() => { authors.value = getAllAuthorsSorted() })
-        .catch(error => { console.error('fetchAuthors:', error) })
+
+    const authors = getAllAuthorsSorted()
 </script>
 
 <template>

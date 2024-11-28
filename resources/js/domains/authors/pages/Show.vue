@@ -1,7 +1,8 @@
 <script setup>
     import { ref } from 'vue'
     import { useRoute } from 'vue-router'
-    import { fetchAuthors, fetchBooks, getAllBooks, getAuthorById } from '../store'
+    import { fetchBooks, getAllBooks } from '../../books/store'
+    import { fetchAuthors, getAuthorById } from '../store'
 
     const route = useRoute()
 

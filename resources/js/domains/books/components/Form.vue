@@ -1,6 +1,6 @@
 <script setup>
     import { ref } from 'vue'
-    import { fetchAuthors, getAllAuthorsSorted } from '../store'
+    import { fetchAuthors, getAllAuthorsSorted } from '../../authors/store'
 
     const props = defineProps(['book'])
     const emit = defineEmits(['submit'])

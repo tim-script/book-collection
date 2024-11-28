@@ -1,6 +1,7 @@
 <script setup>
     import { ref } from 'vue'
-    import { fetchAuthors, fetchBooks, getAllAuthors, getAllBooks } from '../store'
+    import { fetchAuthors, getAllAuthors } from '../../authors/store'
+    import { fetchBooks, getAllBooks } from '../store'
 
     const authors = ref([])
     const books = ref([])

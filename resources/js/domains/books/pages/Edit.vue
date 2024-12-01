@@ -2,20 +2,20 @@
     import { computed } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
     import Form from '../components/Form.vue'
-    import { fetchBooks, getBookById, updateBook } from '../store'
+    import { Book, fetchBooks, getBookById, updateBook } from '../store'
 
     const route = useRoute()
     const router = useRouter()
 
     fetchBooks()
 
-    const book = computed(() => {
+    const book = computed<Book>(() => {
         // XXX See comment in authors/pages/Show.vue
-        const bookFromStore = getBookById(route.params.id).value
-        return bookFromStore ? {...bookFromStore} : {}
+        const bookFromStore = getBookById(Number(route.params.id)).value
+        return bookFromStore ? {...bookFromStore} : <Book>{}
     })
 
-    const updateBookInStore = async () => {
+    const updateBookInStore = async (): Promise<void> => {
         await updateBook(book.value)
         router.push({name: 'book-show', params: {id: book.value.id}})
     }

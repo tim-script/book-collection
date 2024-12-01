@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { computed } from 'vue'
     import { useRoute } from 'vue-router'
-    import { fetchAuthors, getAuthorById } from '../../authors/store'
-    import { fetchBooks, getBookById } from '../store'
+    import { Author, fetchAuthors, getAuthorById } from '../../authors/store'
+    import { Book, fetchBooks, getBookById } from '../store'
 
     const route = useRoute()
 
@@ -10,8 +10,8 @@
     fetchBooks()
 
     // XXX See comment in authors/pages/Show.vue
-    const book = computed(() => getBookById(route.params.id).value || {})
-    const author = computed(() => getAuthorById(book.value.author_id).value || {})
+    const book = computed<Book>(() => getBookById(Number(route.params.id)).value || <Book>{})
+    const author = computed<Author>(() => getAuthorById(book.value.author_id).value || <Author>{})
 </script>
 
 <template>

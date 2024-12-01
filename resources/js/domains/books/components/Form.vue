@@ -1,13 +1,14 @@
 <script setup lang="ts">
     import { ref } from 'vue'
-    import { fetchAuthors, getAllAuthorsSorted } from '../../authors/store'
+    import { Author, fetchAuthors, getAllAuthorsSorted } from '../../authors/store'
+    import { Book } from '../store'
 
-    const props = defineProps(['book'])
-    const emit = defineEmits(['submit'])
+    const props = defineProps<{book: Book}>()
+    const emit = defineEmits<{submit: []}>()
 
-    const authors = ref([])
+    const authors = ref(<Author[]>[])
 
-    const fetchAuthorsAndSetDefaultAuthorId = async () => {
+    const fetchAuthorsAndSetDefaultAuthorId = async (): Promise<void> => {
         await fetchAuthors()
         authors.value = getAllAuthorsSorted().value
         if (props.book.author_id == 0 && authors.value.length > 0)

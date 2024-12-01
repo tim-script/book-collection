@@ -5,8 +5,8 @@
     const route = useRoute()
     const router = useRouter()
 
-    const deleteBookInStore = async () => {
-        await deleteBook(route.params.id)
+    const deleteBookInStore = async (): Promise<void> => {
+        await deleteBook(Number(route.params.id))
         router.push({name: 'overview'})
     }
 

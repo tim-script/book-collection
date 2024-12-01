@@ -1,13 +1,13 @@
 <script setup lang="ts">
     import { useRouter } from 'vue-router'
     import Form from '../components/Form.vue'
-    import { createAuthor } from '../store'
+    import { Author, createAuthor } from '../store'
 
     const router = useRouter()
 
-    const author = {}
+    const author = <Author>{}
 
-    const createAuthorInStore = async () => {
+    const createAuthorInStore = async (): Promise<void> => {
         await createAuthor(author)
         router.push({name: 'author-overview'})
     }

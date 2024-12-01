@@ -1,8 +1,14 @@
-import { computed, ref } from 'vue'
+import axios from 'axios'
+import { ComputedRef, computed, ref } from 'vue'
 
-const authors = ref([])
+export type Author = {
+    id: number,
+    name: string,
+}
 
-export const fetchAuthors = async () => {
+const authors = ref(<Author[]>[])
+
+export const fetchAuthors = async (): Promise<void> => {
     try {
         const {data} = await axios.get('/api/authors')
         authors.value = data
@@ -11,15 +17,15 @@ export const fetchAuthors = async () => {
     }
 }
 
-export const getAllAuthors = () => computed(() => authors.value)
+export const getAllAuthors = (): ComputedRef<Author[]> => computed(() => authors.value)
 
-export const getAllAuthorsSorted = () =>
+export const getAllAuthorsSorted = (): ComputedRef<Author[]> =>
     computed(() => authors.value.toSorted((a, b) => a.name.localeCompare(b.name)))
 
-export const getAuthorById = (id) =>
+export const getAuthorById = (id: number): ComputedRef<Author | undefined> =>
     computed(() => authors.value.find(author => author.id == id))
 
-export const createAuthor = async (author) => {
+export const createAuthor = async (author: Author): Promise<void> => {
     try {
         await axios.post('/api/authors', author)
     } catch (error) {
@@ -27,7 +33,7 @@ export const createAuthor = async (author) => {
     }
 }
 
-export const updateAuthor = async (author) => {
+export const updateAuthor = async (author: Author): Promise<void> => {
     try {
         await axios.patch('/api/authors/' + author.id, author)
     } catch (error) {
@@ -35,7 +41,7 @@ export const updateAuthor = async (author) => {
     }
 }
 
-export const deleteAuthor = async (id) => {
+export const deleteAuthor = async (id: number): Promise<void> => {
     try {
         await axios.delete('/api/authors/' + id)
     } catch (error) {

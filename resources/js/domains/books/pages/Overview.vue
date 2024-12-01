@@ -1,9 +1,9 @@
 <script setup lang="ts">
-    import { computed } from 'vue'
+    import { ComputedRef, computed } from 'vue'
     import { fetchAuthors, getAllAuthors, getAuthorById } from '../../authors/store'
-    import { fetchBooks, getAllBooks } from '../store'
+    import { Book, fetchBooks, getAllBooks } from '../store'
 
-    const getAuthorNameById = (id) => computed(() => {
+    const getAuthorNameById = (id: number): ComputedRef<string> => computed(() => {
         // XXX See comment in authors/pages/Show.vue
         const author = getAuthorById(id).value
         return author ? author.name : ''
@@ -14,7 +14,7 @@
 
     const authors = getAllAuthors()
 
-    const books = computed(() =>
+    const books = computed<Book[]>(() =>
         getAllBooks().value.toSorted((book1, book2) => {
             if (book1.author_id != book2.author_id) {
                 const author1 = getAuthorNameById(book1.author_id).value

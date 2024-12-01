@@ -1,6 +1,8 @@
 <script setup lang="ts">
-    const props = defineProps(['author'])
-    const emit = defineEmits(['submit'])
+    import { Author } from '../store'
+
+    const props = defineProps<{author: Author}>()
+    const emit = defineEmits<{submit: []}>()
 </script>
 
 <template>

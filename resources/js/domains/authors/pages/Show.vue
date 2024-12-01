@@ -1,23 +1,23 @@
 <script setup lang="ts">
     import { computed } from 'vue'
     import { useRoute } from 'vue-router'
-    import { fetchBooks, getBooksByAuthorId } from '../../books/store'
-    import { fetchAuthors, getAuthorById } from '../store'
+    import { Book, fetchBooks, getBooksByAuthorId } from '../../books/store'
+    import { Author, fetchAuthors, getAuthorById } from '../store'
 
     const route = useRoute()
 
     fetchAuthors()
     fetchBooks()
 
-    const author = computed(() =>
+    const author = computed<Author>(() =>
         // XXX getAuthorById() returns undefined if fetchAuthors() has not yet
         // finished. In that case, return an empty object so that using
         // "{{author.name}}" in the template does not cause an error:
         //
         // Uncaught (in promise) TypeError: $setup.author is undefined
-        getAuthorById(route.params.id).value || {})
+        getAuthorById(Number(route.params.id)).value || <Author>{})
 
-    const books = computed(() =>
+    const books = computed<Book[]>(() =>
         getBooksByAuthorId(author.value.id)
             .value
             .sort((book1, book2) => book1.title.localeCompare(book2.title)))

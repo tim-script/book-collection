@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
     import { computed } from 'vue'
     import { fetchAuthors, getAllAuthors, getAuthorById } from '../../authors/store'
     import { fetchBooks, getAllBooks } from '../store'

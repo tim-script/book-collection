@@ -34,6 +34,7 @@ class AuthorController extends Controller
     {
         $validated = $request->validated();
         Author::create($validated);
+        return $this->index();
     }
 
     /**
@@ -59,6 +60,7 @@ class AuthorController extends Controller
     {
         $validated = $request->validated();
         $author->update($validated);
+        return $this->index();
     }
 
     /**
@@ -67,5 +69,6 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
+        return $this->index();
     }
 }

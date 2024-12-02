@@ -34,6 +34,7 @@ class BookController extends Controller
     {
         $validated = $request->validated();
         Book::create($validated);
+        return $this->index();
     }
 
     /**
@@ -59,6 +60,7 @@ class BookController extends Controller
     {
         $validated = $request->validated();
         $book->update($validated);
+        return $this->index();
     }
 
     /**
@@ -67,5 +69,6 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
+        return $this->index();
     }
 }

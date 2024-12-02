@@ -27,7 +27,8 @@ export const getAuthorById = (id: number): ComputedRef<Author | undefined> =>
 
 export const createAuthor = async (author: Author): Promise<void> => {
     try {
-        await axios.post('/api/authors', author)
+        const {data} = await axios.post('/api/authors', author)
+        authors.value = data
     } catch (error) {
         console.error('createAuthor:', error)
     }
@@ -35,7 +36,8 @@ export const createAuthor = async (author: Author): Promise<void> => {
 
 export const updateAuthor = async (author: Author): Promise<void> => {
     try {
-        await axios.patch('/api/authors/' + author.id, author)
+        const {data} = await axios.patch('/api/authors/' + author.id, author)
+        authors.value = data
     } catch (error) {
         console.error('updateAuthor:', error)
     }
@@ -43,7 +45,8 @@ export const updateAuthor = async (author: Author): Promise<void> => {
 
 export const deleteAuthor = async (id: number): Promise<void> => {
     try {
-        await axios.delete('/api/authors/' + id)
+        const {data} = await axios.delete('/api/authors/' + id)
+        authors.value = data
     } catch (error) {
         console.error('deleteAuthor:', error)
     }

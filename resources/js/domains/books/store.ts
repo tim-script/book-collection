@@ -29,7 +29,7 @@ export const createBook = async (book: Book): Promise<void> => {
     try {
         await store.actions.create(book)
     } catch (error) {
-        console.error('updateBook:', error)
+        console.error('createBook:', error)
     }
 }
 

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { addRoutes, createRoute } from '../services/router'
 
 import AuthorCreate   from '../domains/authors/pages/Create.vue'
 import AuthorDelete   from '../domains/authors/pages/Delete.vue'
@@ -12,22 +12,20 @@ import BookEdit     from '../domains/books/pages/Edit.vue'
 import BookOverview from '../domains/books/pages/Overview.vue'
 import BookShow     from '../domains/books/pages/Show.vue'
 
-const routes = [
-    {name: 'overview',        path: '/',                   component: BookOverview},
+// app.ts needs access to router
+export { router } from '../services/router'
 
-    {name: 'author-overview', path: '/authors',            component: AuthorOverview},
-    {name: 'author-create',   path: '/authors/create',     component: AuthorCreate},
-    {name: 'author-show',     path: '/authors/:id',        component: AuthorShow},
-    {name: 'author-edit',     path: '/authors/edit/:id',   component: AuthorEdit},
-    {name: 'author-delete',   path: '/authors/delete/:id', component: AuthorDelete},
+addRoutes([
+    createRoute('overview',        '/',                   BookOverview),
 
-    {name: 'book-create',     path: '/books/create',       component: BookCreate},
-    {name: 'book-show',       path: '/books/:id',          component: BookShow},
-    {name: 'book-edit',       path: '/books/edit/:id',     component: BookEdit},
-    {name: 'book-delete',     path: '/books/delete/:id',   component: BookDelete},
-]
+    createRoute('author-overview', '/authors',            AuthorOverview),
+    createRoute('author-create',   '/authors/create',     AuthorCreate),
+    createRoute('author-show',     '/authors/:id',        AuthorShow),
+    createRoute('author-edit',     '/authors/edit/:id',   AuthorEdit),
+    createRoute('author-delete',   '/authors/delete/:id', AuthorDelete),
 
-export const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
+    createRoute('book-create',     '/books/create',       BookCreate),
+    createRoute('book-show',       '/books/:id',          BookShow),
+    createRoute('book-edit',       '/books/edit/:id',     BookEdit),
+    createRoute('book-delete',     '/books/delete/:id',   BookDelete),
+])

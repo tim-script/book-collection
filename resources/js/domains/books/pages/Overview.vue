@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { ComputedRef, computed } from 'vue'
+    import { createRouteLocation } from '../../../services/router'
     import { fetchAuthors, getAllAuthors, getAuthorById } from '../../authors/store'
     import { Book, fetchBooks, getAllBooks } from '../store'
 
@@ -29,10 +30,10 @@
     <table>
         <tbody>
             <tr v-for="book in books">
-                <td><RouterLink :to="{name: 'author-show', params: {id: book.author_id}}">{{getAuthorNameById(book.author_id)}}</RouterLink></td>
-                <td><RouterLink :to="{name: 'book-show', params: {id: book.id}}">{{book.title}}</RouterLink></td>
-                <td><RouterLink :to="{name: 'book-edit', params: {id: book.id}}">Bewerken</RouterLink></td>
-                <td><RouterLink :to="{name: 'book-delete', params: {id: book.id}}">Verwijderen</RouterLink></td>
+                <td><RouterLink :to="createRouteLocation('author-show', book.author_id)">{{getAuthorNameById(book.author_id)}}</RouterLink></td>
+                <td><RouterLink :to="createRouteLocation('book-show', book.id)">{{book.title}}</RouterLink></td>
+                <td><RouterLink :to="createRouteLocation('book-edit', book.id)">Bewerken</RouterLink></td>
+                <td><RouterLink :to="createRouteLocation('book-delete', book.id)">Verwijderen</RouterLink></td>
             </tr>
         </tbody>
     </table>

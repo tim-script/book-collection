@@ -1,23 +1,24 @@
 <script setup lang="ts">
     import { computed } from 'vue'
-    import { useRoute, useRouter } from 'vue-router'
+    import { getRouteParam, goToRoute } from '../../../services/router'
     import Form from '../components/Form.vue'
     import { Author, fetchAuthors, getAuthorById, updateAuthor } from '../store'
 
-    const route = useRoute()
-    const router = useRouter()
-
     fetchAuthors()
+
+    // XXX We can't call getRouteParam() in the computed() function below. See
+    // https://router.vuejs.org/guide/advanced/composition-api#Accessing-the-Router-and-current-Route-inside-setup
+    const authorId = Number(getRouteParam('id'))
 
     const author = computed<Author>(() => {
         // XXX See comment in Show.vue
-        const authorFromStore = getAuthorById(Number(route.params.id)).value
+        const authorFromStore = getAuthorById(authorId).value
         return authorFromStore ? {...authorFromStore} : <Author>{}
     })
 
     const updateAuthorInStore = async (): Promise<void> => {
         await updateAuthor(author.value)
-        router.push({name: 'author-overview'})
+        goToRoute('author-overview')
     }
 </script>
 

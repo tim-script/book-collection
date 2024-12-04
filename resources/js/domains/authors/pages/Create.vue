@@ -1,9 +1,7 @@
 <script setup lang="ts">
-    import { useRouter } from 'vue-router'
+    import { goToRoute } from '../../../services/router'
     import Form from '../components/Form.vue'
     import { Author, createAuthor } from '../store'
-
-    const router = useRouter()
 
     const author = <Author>{}
 
@@ -19,7 +17,7 @@
         // XXX Check that createAuthors() updates the author state
         console.debug('createAuthorInStore: after:', authors.value)
 
-        router.push({name: 'author-overview'})
+        goToRoute('author-overview')
     }
 </script>
 

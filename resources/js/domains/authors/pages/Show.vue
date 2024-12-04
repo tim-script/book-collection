@@ -1,13 +1,15 @@
 <script setup lang="ts">
     import { computed } from 'vue'
-    import { useRoute } from 'vue-router'
+    import { createRouteLocation, getRouteParam } from '../../../services/router'
     import { Book, fetchBooks, getBooksByAuthorId } from '../../books/store'
     import { Author, fetchAuthors, getAuthorById } from '../store'
 
-    const route = useRoute()
-
     fetchAuthors()
     fetchBooks()
+
+    // XXX We can't call getRouteParam() in the computed() function below. See
+    // https://router.vuejs.org/guide/advanced/composition-api#Accessing-the-Router-and-current-Route-inside-setup
+    const authorId = Number(getRouteParam('id'))
 
     const author = computed<Author>(() =>
         // XXX getAuthorById() returns undefined if fetchAuthors() has not yet
@@ -15,7 +17,7 @@
         // "{{author.name}}" in the template does not cause an error:
         //
         // Uncaught (in promise) TypeError: $setup.author is undefined
-        getAuthorById(Number(route.params.id)).value || <Author>{})
+        getAuthorById(authorId).value || <Author>{})
 
     const books = computed<Book[]>(() =>
         getBooksByAuthorId(author.value.id)
@@ -28,17 +30,17 @@
 
     <nav>
         <ul>
-            <li><RouterLink :to="{name: 'author-edit', params: {id: route.params.id}}">Bewerken</RouterLink></li>
-            <li><RouterLink :to="{name: 'author-delete', params: {id: route.params.id}}">Verwijderen</RouterLink></li>
+            <li><RouterLink :to="createRouteLocation('author-edit', author.id)">Bewerken</RouterLink></li>
+            <li><RouterLink :to="createRouteLocation('author-delete', author.id)">Verwijderen</RouterLink></li>
         </ul>
     </nav>
 
     <table>
         <tbody>
             <tr v-for="book in books">
-                <td><RouterLink :to="{name: 'book-show', params: {id: book.id}}">{{book.title}}</RouterLink></td>
-                <td><RouterLink :to="{name: 'book-edit', params: {id: book.id}}">Bewerken</RouterLink></td>
-                <td><RouterLink :to="{name: 'book-delete', params: {id: book.id}}">Verwijderen</RouterLink></td>
+                <td><RouterLink :to="createRouteLocation('book-show', book.id)">{{book.title}}</RouterLink></td>
+                <td><RouterLink :to="createRouteLocation('book-edit', book.id)">Bewerken</RouterLink></td>
+                <td><RouterLink :to="createRouteLocation('book-delete', book.id)">Verwijderen</RouterLink></td>
             </tr>
         </tbody>
     </table>

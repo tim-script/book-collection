@@ -1,34 +1,31 @@
 import { ComputedRef, computed, ref } from 'vue'
-import { deleteRequest, getRequest, patchRequest, postRequest } from '../../services/http'
+import { type StoreItem, storeModuleFactory } from '../../services/store'
 
-export type Author = {
-    id: number,
+export interface Author extends StoreItem {
     name: string,
 }
 
-const authors = ref(<Author[]>[])
+const store = storeModuleFactory<Author>('authors')
 
 export const fetchAuthors = async (): Promise<void> => {
     try {
-        const {data} = await getRequest('authors')
-        authors.value = data
+        await store.actions.getAll()
     } catch (error) {
         console.error('fetchAuthors:', error)
     }
 }
 
-export const getAllAuthors = (): ComputedRef<Author[]> => computed(() => authors.value)
+export const getAllAuthors = (): ComputedRef<Author[]> => store.getters.all()
 
 export const getAllAuthorsSorted = (): ComputedRef<Author[]> =>
-    computed(() => authors.value.toSorted((a, b) => a.name.localeCompare(b.name)))
+    store.getters.sorted((author1, author2) => author1.name.localeCompare(author2.name))
 
 export const getAuthorById = (id: number): ComputedRef<Author | undefined> =>
-    computed(() => authors.value.find(author => author.id == id))
+    store.getters.byId(id)
 
 export const createAuthor = async (author: Author): Promise<void> => {
     try {
-        const {data} = await postRequest('authors', author)
-        authors.value = data
+       await store.actions.create(author)
     } catch (error) {
         console.error('createAuthor:', error)
     }
@@ -36,8 +33,7 @@ export const createAuthor = async (author: Author): Promise<void> => {
 
 export const updateAuthor = async (author: Author): Promise<void> => {
     try {
-        const {data} = await patchRequest('authors/' + author.id, author)
-        authors.value = data
+        await store.actions.update(author)
     } catch (error) {
         console.error('updateAuthor:', error)
     }
@@ -45,8 +41,7 @@ export const updateAuthor = async (author: Author): Promise<void> => {
 
 export const deleteAuthor = async (id: number): Promise<void> => {
     try {
-        const {data} = await deleteRequest('authors/' + id)
-        authors.value = data
+        await store.actions.delete(id)
     } catch (error) {
         console.error('deleteAuthor:', error)
     }

@@ -1,36 +1,33 @@
 import { ComputedRef, Ref, computed, ref } from 'vue'
-import { deleteRequest, getRequest, patchRequest, postRequest } from '../../services/http'
+import { type StoreItem, storeModuleFactory } from '../../services/store'
 
-export type Book = {
-    id: number,
+export interface Book extends StoreItem {
     author_id: number,
     title: string,
     review: string | null,
 }
 
-const books = ref(<Book[]>[])
+const store = storeModuleFactory<Book>('books')
 
 export const fetchBooks = async (): Promise<void> => {
     try {
-        const {data} = await getRequest('books')
-        books.value = data
+        await store.actions.getAll()
     } catch (error) {
         console.error('fetchBooks:', error)
     }
 }
 
-export const getAllBooks = (): ComputedRef<Book[]> => computed(() => books.value)
+export const getAllBooks = (): ComputedRef<Book[]> => store.getters.all()
 
 export const getBooksByAuthorId = (authorId: number): ComputedRef<Book[]> =>
-    computed(() => books.value.filter(book => book.author_id == authorId))
+    store.getters.filter(book => book.author_id == authorId)
 
 export const getBookById = (id: number): ComputedRef<Book | undefined> =>
-    computed(() => books.value.find(book => book.id == id))
+    store.getters.byId(id)
 
 export const createBook = async (book: Book): Promise<void> => {
     try {
-        const {data} = await postRequest('books', book)
-        books.value = data
+        await store.actions.create(book)
     } catch (error) {
         console.error('updateBook:', error)
     }
@@ -38,8 +35,7 @@ export const createBook = async (book: Book): Promise<void> => {
 
 export const updateBook = async (book: Book): Promise<void> => {
     try {
-        const {data} = await patchRequest('books/' + book.id, book)
-        books.value = data
+        await store.actions.update(book)
     } catch (error) {
         console.error('updateBook:', error)
     }
@@ -47,8 +43,7 @@ export const updateBook = async (book: Book): Promise<void> => {
 
 export const deleteBook = async (id: number): Promise<void> => {
     try {
-        const {data} = await deleteRequest('books/' + id)
-        books.value = data
+        await store.actions.delete(id)
     } catch (error) {
         console.error('deleteBook:', error)
     }

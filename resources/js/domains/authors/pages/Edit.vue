@@ -17,7 +17,19 @@
     })
 
     const updateAuthorInStore = async (): Promise<void> => {
+
+        // XXX How is it possible that getAllAuthors() has the new author value
+        // before updateAuthor() has been called? And why, then, does
+        // getAuthorById() still return the old author value?
+        const { getAllAuthors } = await import('../store')
+        console.debug('updateAuthorInStore: before:', getAuthorById(authorId).value)
+        console.debug('updateAuthorInStore: before:', getAllAuthors().value)
+
         await updateAuthor(author.value)
+
+        console.debug('updateAuthorInStore: after:', getAuthorById(authorId).value)
+        console.debug('updateAuthorInStore: after:', getAllAuthors().value)
+
         goToRoute('author-overview')
     }
 </script>
